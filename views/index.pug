@@ -1,5 +1,25 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+
+  div.d-flex.flex-wrap
+    each val, year in data
+      div.border.m-auto.mt-2.p-2
+        h1=year
+        table 
+          thead 
+            - var MonthStr = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+            each val, key in data[year]
+              th=MonthStr[key - 1]
+          tbody
+            - var index = 1
+            while index <= 31
+              tr
+                each month in data[year]
+                  td
+                    if month[index]
+                      div.pixel(data=month[index] style={'background-color': month[index][1]} data-bs-toggle="tooltip" data-bs-placement="bottom" title=month[index][0])
+                    else
+                      p
+              - index++
